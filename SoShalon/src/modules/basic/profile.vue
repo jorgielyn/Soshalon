@@ -34,7 +34,8 @@
                       <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div class="text-center text-sm-left mb-2 mb-sm-0">
                           <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{this.fullname}}</h4>
-                          <p class="mb-0">@johnny.s</p>
+                          <p class="mb-0">{{this.username}}</p>
+                          <p class="mb-0">{{this.email}}</p>
                           <div class="input-group">
                             <div class="custom-file">
                               <i class="fa fa-fw fa-camera"></i>
@@ -57,9 +58,8 @@
                                       class="form-control"
                                       type="text"
                                       name="name"
-                                      placeholder
-                                      value
                                       v-model="input.fullname"
+                                      :placeholder="[[ this.fullname ]]"
                                     >
                                   </div>
                                 </div>
@@ -70,9 +70,9 @@
                                       class="form-control"
                                       type="text"
                                       name="username"
-                                      placeholder
-                                      value
                                       v-model="input.username"
+                                      :placeholder="[[ this.username ]]"
+                                      
                                     >
                                   </div>
                                 </div>
@@ -84,8 +84,9 @@
                                     <input
                                       class="form-control"
                                       type="text"
-                                      placeholder
                                       v-model="input.email"
+                                      :placeholder="[[this.email]]"
+                                      
                                     >
                                   </div>
                                 </div>
@@ -97,8 +98,8 @@
                                     <input
                                       class="form-control"
                                       type="text"
-                                      placeholder
                                       v-model="input.fb"
+                                      :placeholder="[[this.fb]]"
                                     >
                                   </div>
                                 </div>
@@ -110,8 +111,8 @@
                                     <input
                                       class="form-control"
                                       type="text"
-                                      placeholder
                                       v-model="input.contactNo"
+                                      :placeholder="[[this.contactNo]]"
                                     >
                                   </div>
                                 </div>
@@ -120,11 +121,11 @@
                                 <b>What service/s do you offer?</b>
                                 <br>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" value=" " v-model="input.service1">Nail Polish
+                                  <input type="checkbox" value=" " v-model="input.service1" :placeholder="[[this.service1]]">Nail Polish
                                 </label>
                                 <br>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" value=" " v-model="input.service2">Hair cut
+                                  <input type="checkbox" value=" " v-model="input.service2" :placeholder="[[this.service2]]">Hair cut
                                 </label>
                               </div>
                               <div class="row">
@@ -133,9 +134,9 @@
                                     <label>About</label>
                                     <textarea
                                       v-model="input.description"
+                                      :placeholder="[[this.description]]"
                                       class="form-control"
                                       rows="5"
-                                      placeholder="Add description of yourself or expertise..."
                                     ></textarea>
                                   </div>
                                 </div>
@@ -211,7 +212,11 @@
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button type="submit" btn btn-primary v-on:click="updateProfile()" >Save Changes</button>
+                              <button
+                                type="submit"
+                                class="btn btn-primary"
+                                v-on:click="updateProfile()"
+                              >Save Changes</button>
                             </div>
                           </div>
                         </form>
@@ -245,16 +250,14 @@ import { constants } from "fs";
 import axios from "axios";
 import router from "router";
 sessionStorage.setItem("token", false);
-// var email = JSON.stringify(AUTH.currentUser.email);
-// var fullname = "";
-// email = email.replace(/['"]+/g, "");
-// fullname = fullname.replace(/['"]+/g, "");
 
 export default {
   name: "profile",
   data() {
     return {
-      fullname: "sample",
+      fullname: AUTH.currentUser.fullname,
+      email: AUTH.currentUser.email,
+      username: AUTH.currentUser.username,
       input: {
         fullname: "",
         username: "",
@@ -276,6 +279,7 @@ export default {
   },
   methods: {
     updateProfile() {
+      //console.log(AUTH.fullname)
       var data = {
         fullname: this.input.fullname,
         fb: this.input.fb,
@@ -294,6 +298,7 @@ export default {
         if (this.input.newPassword == this.input.ConfirmPassword) {
           axios.post("http://localhost:3000/updateProfile", data).then(
             //console.log("fdf")
+
             response => {
               if (response.data.message == "ok") {
                 console.log("ok");

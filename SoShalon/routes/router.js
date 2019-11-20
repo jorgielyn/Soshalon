@@ -17,15 +17,17 @@ router.post('/auth', function (req, res, next) {
     User.authenticate(req.body.username, req.body.password, function (error, user) {
       if (error || !user) {
         var err = new Error('Wrong email or password.');
-        res.status(200).json({ message: err.message })
+        res.status(401).json({ message: err.message })
         return next(err);
       } else {
         //data = user.username;
         req.session.userId = user._id;
         req.session.password = user.password;
         req.session.User = user.username;
-        res.status(200).json({ message: 'oks' })
-        // return res.redirect('modules/basic/dashboard.vue');
+        res.send(user)
+        console.log(user)
+        //res.status(200).json({ message: 'oks' })
+        //return res.redirect('modules/basic/dashboard.vue');
       }
     });
   } else {
