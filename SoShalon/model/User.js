@@ -15,8 +15,9 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
-  imgURL: {
-    type: String,
+  imgURL: { 
+    data: Buffer, 
+    contentType: String,
     required: false
   },
   fullname: {

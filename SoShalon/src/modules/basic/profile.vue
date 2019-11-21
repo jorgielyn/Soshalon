@@ -3,9 +3,7 @@
     <Header></Header>
     <!-- <Sidebar></Sidebar> -->
     <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    >
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <br>
     <br>
     <div class="container">
@@ -21,10 +19,8 @@
                         <div class="mx-auto" style="width: 140px;">
                           <div
                             class="d-flex justify-content-center align-items-center rounded"
-                            style="height: 140px; background-color: rgb(233, 236, 239);"
-                          >
-                            <!-- <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;" class="image" src="">140x140</span> -->
-                            <img
+                            style="height: 140px; background-color: rgb(233, 236, 239);">
+                            <img 
                               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_h1-ndFdLmk7IIzAoADDo1GqzkdAXqI48XTKKuDyhBe5ZEH-R&s"
                               class="image"
                             >
@@ -47,7 +43,7 @@
                     </div>
                     <div class="tab-content pt-3">
                       <div class="tab-pane active">
-                        <form class="form" novalidate>
+                        <form class="form" onsubmit="event.preventDefault();">
                           <div class="row">
                             <div class="col">
                               <div class="row">
@@ -258,6 +254,11 @@ export default {
       fullname: AUTH.currentUser.fullname,
       email: AUTH.currentUser.email,
       username: AUTH.currentUser.username,
+      fb: AUTH.currentUser.fb,
+      contactNo: AUTH.currentUser.contactNo,
+      service1: AUTH.currentUser.service1,
+      service2: AUTH.currentUser.service2,
+      description: AUTH.currentUser.description,
       input: {
         fullname: "",
         username: "",
@@ -279,7 +280,6 @@ export default {
   },
   methods: {
     updateProfile() {
-      //console.log(AUTH.fullname)
       var data = {
         fullname: this.input.fullname,
         fb: this.input.fb,
@@ -291,18 +291,16 @@ export default {
         newPassword: this.input.newPassword,
         ConfirmPassword: this.input.ConfirmPassword,
         email: this.input.email,
-        username: this.input.username
+        username: this.input.username,
       };
       AUTH.passwordValidation(this.input.newPassword);
       if (AUTH.passwordValid == 1) {
         if (this.input.newPassword == this.input.ConfirmPassword) {
           axios.post("http://localhost:3000/updateProfile", data).then(
-            //console.log("fdf")
-
             response => {
               if (response.data.message == "ok") {
                 console.log("ok");
-                router.push({ path: "/login" });
+                //router.push({ path: "/login" });
               }
             },
             err => {

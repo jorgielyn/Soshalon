@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var User = require('../model/user');
 
-
+var userId;
+var password;
 //let data = sessionStorage.getItem('username');
 
 // GET route for reading data
@@ -21,10 +22,11 @@ router.post('/auth', function (req, res, next) {
         return next(err);
       } else {
         //data = user.username;
+        res.send(user)
         req.session.userId = user._id;
         req.session.password = user.password;
-        req.session.User = user.username;
-        res.send(user)
+        userId = req.session.userId;
+        console.log(userId)
         console.log(user)
         //res.status(200).json({ message: 'oks' })
         //return res.redirect('modules/basic/dashboard.vue');
@@ -51,57 +53,31 @@ router.post('/create', function (req, res) {
 })
 
 router.post('/updateProfile', function (req, res) {
-   User.find({username: req.session.username }, function (err, user) {
-     res.send(user)
-     console.log(user)
-    //console.log(req.session.userId)
-    //if (req.body.currentPassword == req.session.password) {
-     // console.log("ok kaayoss")
-      // if (!user) {
-      //   //res.send('error', 'No account found');
-      //   //return res.redirect('/profile');
-      //   console.log("user not found ")
-      // }
-      // console.log()
-      // //console.log(user)
-      // var email = req.body.email.trim();
-      // var username = req.body.username.trim();
-      // var fullname = req.body.fullname.trim();
-      // var fb = req.body.fb.trim();
-      // var contactNo = req.body.contactNo.trim();
-      // var service1 = req.body.service1.trim();
-      // var service2 = req.body.service2.trim();
-      // var description = req.body.description.trim();
-      // //var currentPassword = req.body.currentPassword.trim();
-      // var newPassword = req.body.newPassword.trim();
-
-      // user.email = email;
-      // user.username = username;
-      // user.fullname = fullname;
-      // user.fb = fb;
-      // user.contactNo = contactNo;
-      // user.service1 = service1;
-      // user.service2 = service2;
-      // user.description = description;
-      // user.password = newPassword
-      // user.save()
-      //   .then(() => {
-      //     res.status(200).json({ message: 'ok' })
-      //     console.log('ok')
-      //   })
-      //   .catch(err => {
-      //     res.status(401).json({ message: err.message })
-      //     console.log('error')
-      //   })
-
-
-    //}
-   })
-
+  var email = req.body.email.trim();
+  var username = req.body.username.trim();
+  var fullname = req.body.fullname.trim();
+  var fb = req.body.fb.trim();
+  var contactNo = req.body.contactNo.trim();
+  var service1 = req.body.service1.trim();
+  var service2 = req.body.service2.trim();
+  var description = req.body.description.trim();
+  var newPassword = req.body.newPassword.trim();
+  User.update({ _id: userId }, { $set: { fullname: fullname, email: email, username: username, fb: fb, contactNo: contactNo, service1: service1, service2, service2, description: description, password: newPassword } }, function (err, result) {
+    console.log(result)
+    if (err) {
+      console.log(err);
+      res.status(401).json({ message: err.message })
+    }
+    else {
+      //console
+      console.log(result);
+      res.status(200).json({ message: 'ok' })
+    }
+  });
 })
 
 // GET route after registering
-router.get('modules/basic/dashboard.vue', function (req, res, next) {
+router.get('/dashboard', function (req, res, next) {
   User.findById(req.session.userId)
     .exec(function (error, user) {
       if (error) {
@@ -111,9 +87,7 @@ router.get('modules/basic/dashboard.vue', function (req, res, next) {
           var err = new Error('Not authorized! Go back!');
           err.status = 400;
           return next(err);
-        } //else {
-        //   return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
-        // }
+        } 
       }
     });
 });
