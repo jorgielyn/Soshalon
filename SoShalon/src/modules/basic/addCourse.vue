@@ -42,8 +42,8 @@
                         <div class="text-center text-sm-left mb-2 mb-sm-0">
                           <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{this.fullname}}</h4>
                           <p class="mb-0">@Kath</p>
-                          <p class="mb-0">@address</p>
-                          <p class="mb-0">@service</p>
+                          <p class="mb-0">{{this.address}}</p>
+                          <p class="mb-0">{{this.service}}</p>
                           <!-- <div class="input-group">
                             <div class="custom-file">
                               <i class="fa fa-fw fa-camera"></i>
