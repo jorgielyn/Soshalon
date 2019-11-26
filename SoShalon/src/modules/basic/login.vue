@@ -53,11 +53,12 @@ export default {
 
       axios.post("http://localhost:3000/auth", data).then(
         response => {
-          //if (response) {
-            AUTH.storeData(response.data.fullname, response.data.username, response.data.email, response.data.fb, response.data.contactNo, response.data.service1, response.data.service2, response.data.description, response.data.currentPassword)
+          if (response.data.message == "ok") {
+            console.log("ok")
+            //AUTH.storeData(response.data.fullname, response.data.username, response.data.email, response.data.fb, response.data.contactNo, response.data.service1, response.data.service2, response.data.description, response.data.currentPassword)
             //console.log(response);
             router.push({ path: "/profile" });
-          //}
+          }
           if(response.data.message == "Wrong email or password."){
               alert(response.data.message)
           }

@@ -1,16 +1,56 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../model/user');
-
 var userId;
-var password;
-//let data = sessionStorage.getItem('username');
+const multer = require("multer");
 
 // GET route for reading data
 router.get('/', function (req, res, next) {
   return res.sendFile(path.join(__dirname + 'modules/basic/login.vue'));
 });
 
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (!allowedTypes.includes(file.mimetype)) {
+    const error = new Error("Incorrect file");
+    error.code = "INCORRECT_FILETYPE";
+    return cb(error, false)
+  }
+  cb(null, true);
+}
+
+const upload = multer({
+  dest: './uploads',
+  fileFilter,
+  limits: {
+    fileSize: 5000000
+  }
+});
+router.post('/upload', upload.single('file'), (req, res) => {
+  res.json({ file: req.file });
+});
+
+router.use((err, req, res, next) => {
+  if (err.code === "INCORRECT_FILETYPE") {
+    res.status(422).json({ error: 'Only images are allowed' });
+    return;
+  }
+  if (err.code === "LIMIT_FILE_SIZE") {
+    res.status(422).json({ error: 'Allow file size is 500KB' });
+    return;
+  }
+});
+
+//fetch current User
+router.get('/profile', function (req, res) {
+  User.find({ _id: userId }, (err, user) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json({ data: user });
+    //console.log(user)
+  });
+})
 
 //login authentication
 router.post('/auth', function (req, res, next) {
@@ -21,14 +61,10 @@ router.post('/auth', function (req, res, next) {
         res.status(401).json({ message: err.message })
         return next(err);
       } else {
-        //data = user.username;
-        res.send(user)
         req.session.userId = user._id;
-        req.session.password = user.password;
+        //req.session.password = user.password;
         userId = req.session.userId;
-        console.log(userId)
-        console.log(user)
-        //res.status(200).json({ message: 'oks' })
+        res.status(200).json({ message: 'ok' })
         //return res.redirect('modules/basic/dashboard.vue');
       }
     });
@@ -87,7 +123,7 @@ router.get('/dashboard', function (req, res, next) {
           var err = new Error('Not authorized! Go back!');
           err.status = 400;
           return next(err);
-        } 
+        }
       }
     });
 });

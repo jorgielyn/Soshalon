@@ -32,7 +32,7 @@ var UserSchema = new Schema({
     type: String,
     required: false
   },
-  messengerId: {
+  fb: {
     type: String,
     required: false
   },
