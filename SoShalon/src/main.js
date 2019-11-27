@@ -4,7 +4,13 @@ import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import router from 'router';
-
+// swall fire
+import VueSweetalert2 from 'vue-sweetalert2';
+ 
+// If you don't need the styles, do not connect
+import 'sweetalert2/dist/sweetalert2.min.css';
+ // to use the swal fire
+Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
@@ -15,5 +21,4 @@ new Vue({
   router: router,
   template: '<router-view></router-view>'
 }).$mount('#app')
-
 
