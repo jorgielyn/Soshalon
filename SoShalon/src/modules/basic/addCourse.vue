@@ -2,9 +2,9 @@
   <div id="setAppointment">
     <header id="header">
       <b-navbar toggleable="lg" type="dark" variant="dark">
-        <img id="logo" src="/logo.png">
-        <img id="notify" src="/notifi.png">
-        <img id="profile" src="/profile.jpeg">
+        <img id="logo" src="/logo.png" />
+        <img id="notify" src="/notifi.png" />
+        <img id="profile" src="/profile.jpeg" />
       </b-navbar>
     </header>
 
@@ -12,9 +12,9 @@
     <link
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
       rel="stylesheet"
-    >
-    <br>
-    <br>
+    />
+    <br />
+    <br />
     <div class="container">
       <div class="row flex-lg-nowrap">
         <div class="col">
@@ -34,7 +34,7 @@
                             <img
                               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_h1-ndFdLmk7IIzAoADDo1GqzkdAXqI48XTKKuDyhBe5ZEH-R&s"
                               class="image"
-                            >
+                            />
                           </div>
                         </div>
                       </div>
@@ -85,7 +85,7 @@
                                       placeholder="Enter home address"
                                       value
                                       v-model="input.username"
-                                    >
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -98,7 +98,7 @@
                                       type="date"
                                       placeholder
                                       v-model="input.date"
-                                    >
+                                    />
                                   </div>
                                 </div>
                                 <div class="col">
@@ -107,23 +107,23 @@
                                     <label id="service">Contact number:</label>
                                     <input
                                       class="form-control"
-                                      type="text"
+                                      type="phone"
                                       placeholder="Enter phone number"
                                       v-model="input.contactNo"
-                                    >
+                                    />
                                   </div>
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="container">
                                   <b id="service">Time</b>
-                                  <br>
+                                  <br />
                                   <label class="checkbox-inline">
-                                    <input type="checkbox" value=" " v-model="input.service1">9:00-10:00
+                                    <input type="checkbox" value=" " v-model="input.service1" />9:00-10:00
                                   </label>
-                                  <br>
+                                  <br />
                                   <label class="checkbox-inline">
-                                    <input type="checkbox" value=" " v-model="input.service2">1:00-2:00
+                                    <input type="checkbox" value=" " v-model="input.service2" />1:00-2:00
                                   </label>
                                 </div>
                                 <div class="col col-sm-6 mb-3">
@@ -134,7 +134,7 @@
                                       type="messenger"
                                       placeholder="Add messenger here..."
                                       v-model="input.messenger"
-                                    >
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -154,20 +154,16 @@
                                     ></textarea>
                                   </div>
                                 </div>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
                                 <div class="col mb-3">
                                   <div class="col d-flex justify-content-end">
-                                    <b-button type="reset" variant="danger">CANCEL</b-button>
-                                    <br>
-                                    <br>
-                                    <b-button v-b-modal.modal-center class="btn btn-success">Submit</b-button>
-                                    <b-modal id="modal-center" centered title="Your appointment was submitted!">
-                                      <!-- <p class="my-4">Your appointment was submitted!</p> -->
-                                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTowV2sg_bV-F3ztqwMFH9PExyN4M8R-kdAeEMrsCoEtKAeqs1&s" class="image">
-                                    </b-modal>
+                                    <button v-on:click="alertDisplay1" class="btn btn-danger">CANCEL</button>
+                                    <br />
+                                    <br />
+                                    <button v-on:click="alertDisplay" class="btn btn-info">SUBMIT</button>
                                   </div>
                                 </div>
                               </div>
@@ -188,8 +184,8 @@
         </div>
       </div>
     </div>
-    <br>
-    <br>
+    <br />
+    <br />
   </div>
 </template>
 <script>
@@ -200,20 +196,19 @@ $(function() {
     $(".image").attr("src", img);
   });
 });
-
 import Header from "components/frame/Header.vue";
 //import Sidebar from "components/frame/Sidebar.vue";
 import AUTH from "services/auth";
 import { constants } from "fs";
 import axios from "axios";
 import router from "router";
+import { type } from "os";
 sessionStorage.setItem("token", false);
 // var email = JSON.stringify(AUTH.currentUser.email);
 // var fullname = "";
 // email = email.replace(/['"]+/g, "");
 // fullname = fullname.replace(/['"]+/g, "");
 // ES6 Modules or TypeScript
-
 export default {
   name: "profile",
   data() {
@@ -225,12 +220,45 @@ export default {
         date: "",
         time: "",
         messenger: "",
-        service1: "",
-        service2: "",
+        text: "",
+        phone: "",
         description: "",
         selectedItem: ""
       }
     };
+  },
+  methods: {
+    alertDisplay() {
+      // $swal function calls SweetAlert into the application with the specified configuration.
+      // this.$swal('SUBMITTED', 'Your Appointment is Submmitted!', 'OK');
+      this.$swal({
+        type: "success",
+        title: "SUCCESS!",
+        text: "Your appointment has been submitted"
+      });
+    },
+    alertDisplay1() {
+      this.$swal({
+        title: "Are you sure?",
+        text: "You can't revert your action",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes Delete it!",
+        cancelButtonText: "No, Keep it!",
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then(result => {
+        if (result.value) {
+          this.$swal(
+            "Deleted",
+            "You successfully deleted this file",
+            "success"
+          );
+        } else {
+          this.$swal("Cancelled", "Your file is still intact", "info");
+        }
+      });
+    }
   },
   components: {
     Header
