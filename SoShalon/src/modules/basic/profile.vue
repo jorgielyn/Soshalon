@@ -3,7 +3,9 @@
     <Header></Header>
     <!-- <Sidebar></Sidebar>action="fileupload" method="post" enctype="multipart/form-data" -->
     <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    >
     <br>
     <br>
     <div class="container">
@@ -19,11 +21,9 @@
                         <div class="mx-auto" style="width: 140px;">
                           <div
                             class="d-flex justify-content-center align-items-center rounded"
-                            style="height: 140px; background-color: rgb(233, 236, 239);">
-                            <img 
-                              :src = "this.file"
-                              class="image"
-                            >
+                            style="height: 140px; background-color: rgb(233, 236, 239);"
+                          >
+                            <img src ="" class="image" id="img">
                           </div>
                         </div>
                       </div>
@@ -33,19 +33,16 @@
                           <p class="mb-0">{{this.username}}</p>
                           <p class="mb-0">{{this.email}}</p>
                           <div class="input-group">
-                          <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+                            <form @submit.prevent="onSubmit" enctype="multipart/form-data">
                               <div class="fields">
-                                <label>Upload File</label><br/>
-                                <input 
-                                  type="file"
-                                  ref="file"
-                                  @change="onSelect"
-                                />
+                                <label>Upload File</label>
+                                <br>
+                                <input type="file" ref="file" @change="onSelect()">
                               </div>
                               <div class="fields">
                                 <button>Submit</button>
                               </div>
-                          </form>
+                            </form>
                           </div>
                         </div>
                       </div>
@@ -77,7 +74,6 @@
                                       name="username"
                                       v-model="input.username"
                                       :placeholder="[[ this.username ]]"
-                                      
                                     >
                                   </div>
                                 </div>
@@ -90,7 +86,7 @@
                                       class="form-control"
                                       type="text"
                                       v-model="input.email"
-                                      :placeholder="[[this.email]]" 
+                                      :placeholder="[[this.email]]"
                                     >
                                   </div>
                                 </div>
@@ -125,11 +121,21 @@
                                 <b>What service/s do you offer?</b>
                                 <br>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" value="NailPolish" v-model="input.service1" :placeholder="[[this.service1]]">Nail Polish
+                                  <input
+                                    type="checkbox"
+                                    value="NailPolish"
+                                    v-model="input.service1"
+                                    :placeholder="[[this.service1]]"
+                                  >Nail Polish
                                 </label>
                                 <br>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" value="Haircut" v-model="input.service2" :placeholder="[[this.service2]]">Hair cut
+                                  <input
+                                    type="checkbox"
+                                    value="Haircut"
+                                    v-model="input.service2"
+                                    :placeholder="[[this.service2]]"
+                                  >Hair cut
                                 </label>
                               </div>
                               <div class="row">
@@ -190,7 +196,7 @@
                                     <input
                                       class="form-control"
                                       type="password"
-                                      placeholder=""
+                                      placeholder
                                       v-model="input.newPassword"
                                     >
                                   </div>
@@ -206,15 +212,21 @@
                                     <input
                                       class="form-control"
                                       type="password"
-                                      placeholder=""
+                                      placeholder
                                       v-model="input.ConfirmPassword"
                                     >
                                   </div>
                                 </div>
                               </div>
-                              <b>Mark check to post Profile</b><br>
+                              <b>Mark check to post Profile</b>
+                              <br>
                               <label class="checkbox-inline">
-                                  <input type="checkbox" value="true" v-model="input.service1" :placeholder="[[this.service1]]">Post Profile
+                                <input
+                                  type="checkbox"
+                                  value="true"
+                                  v-model="input.service1"
+                                  :placeholder="[[this.service1]]"
+                                >Post Profile
                               </label>
                             </div>
                           </div>
@@ -264,7 +276,7 @@ export default {
   name: "profile",
   data() {
     return {
-      file:"",
+      file: "",
       fullname: "",
       email: "",
       username: "",
@@ -292,28 +304,25 @@ export default {
     Header
     //Sidebar
   },
-  mounted(){
-    axios.get("http://localhost:3000/profile").then(
-      response =>{
-        //this.username = response.data.data.username
-        for(var i in response.data.data){
-          this.username = response.data.data[i].username
-          this.fullname = response.data.data[i].fullname
-          this.email = response.data.data[i].email
-          this.fb = response.data.data[i].fb
-          this.contactNo = response.data.data[i].contactNo
-          this.service1 = response.data.data[i].service1
-          this.service2 = response.data.data[i].service2
-          this.description = response.data.data[i].description
-         
-          //alert(response.data.data[i].username)
-        }
-        //alert(response.data.data.email)
+  mounted() {
+    axios.get("http://localhost:3000/profile").then(response => {
+      //this.username = response.data.data.username
+      for (var i in response.data.data) {
+        this.username = response.data.data[i].username;
+        this.fullname = response.data.data[i].fullname;
+        this.email = response.data.data[i].email;
+        this.fb = response.data.data[i].fb;
+        this.contactNo = response.data.data[i].contactNo;
+        this.service1 = response.data.data[i].service1;
+        this.service2 = response.data.data[i].service2;
+        this.description = response.data.data[i].description;
+
+        //alert(response.data.data[i].username)
       }
-    )
-            
+      //alert(response.data.data.email)
+    });
   },
-  
+
   methods: {
     updateProfile() {
       var data = {
@@ -327,7 +336,7 @@ export default {
         newPassword: this.input.newPassword,
         ConfirmPassword: this.input.ConfirmPassword,
         email: this.input.email,
-        username: this.input.username,
+        username: this.input.username
       };
       AUTH.passwordValidation(this.input.newPassword);
       if (AUTH.passwordValid == 1) {
@@ -348,30 +357,31 @@ export default {
         }
       }
     },
-    onSelect(){
+    onSelect() {
       const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
       const file = this.$refs.file.files[0];
       this.file = file;
-      if(!allowedTypes.includes(file.type)){
-        this.message = "Filetype is wrong!!"
+      if (!allowedTypes.includes(file.type)) {
+        this.message = "Filetype is wrong!!";
       }
-      if(file.size>500000){
-        this.message = 'Too large, max size allowed is 500kb'
+      if (file.size > 500000) {
+        this.message = "Too large, max size allowed is 500kb";
       }
+      var img = URL.createObjectURL(file);
+      //this.file = img;
+      $("#img").attr("src", img);
     },
-    async onSubmit(){
+    async onSubmit() {
       const formData = new FormData();
-      formData.append('file',this.file);
-      try{
-        await axios.post('http://localhost:3000/upload',formData);
-        this.message = 'Uploaded!!'
-      }
-      catch(err){
+      formData.append("file", this.file);
+      try {
+        await axios.post("http://localhost:3000/upload", formData);
+        this.message = "Uploaded!!";
+      } catch (err) {
         console.log(err);
-        this.message = err.response.data.error
+        this.message = err.response.data.error;
       }
     }
-
   }
 };
 </script>

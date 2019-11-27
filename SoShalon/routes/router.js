@@ -9,6 +9,7 @@ router.get('/', function (req, res, next) {
   return res.sendFile(path.join(__dirname + 'modules/basic/login.vue'));
 });
 
+
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
   if (!allowedTypes.includes(file.mimetype)) {
@@ -26,8 +27,11 @@ const upload = multer({
     fileSize: 5000000
   }
 });
+var imagepath = "";
 router.post('/upload', upload.single('file'), (req, res) => {
   res.json({ file: req.file });
+  imagepath = req.file.path
+  console.log(imagepath)
 });
 
 router.use((err, req, res, next) => {
@@ -98,7 +102,8 @@ router.post('/updateProfile', function (req, res) {
   var service2 = req.body.service2.trim();
   var description = req.body.description.trim();
   var newPassword = req.body.newPassword.trim();
-  User.update({ _id: userId }, { $set: { fullname: fullname, email: email, username: username, fb: fb, contactNo: contactNo, service1: service1, service2, service2, description: description, password: newPassword } }, function (err, result) {
+  var imagepath1 = imagepath;
+  User.update({ _id: userId }, { $set: { fullname: fullname, email: email, username: username, fb: fb, contactNo: contactNo, service1: service1, service2, service2, description: description, password: newPassword,img:imagepath1 } }, function (err, result) {
     console.log(result)
     if (err) {
       console.log(err);
