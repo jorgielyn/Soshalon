@@ -16,8 +16,13 @@ var UserSchema = new Schema({
     required: true
   },
   img: { 
+<<<<<<< HEAD
     type:String,
     required: false
+=======
+   type:String,
+   required: false
+>>>>>>> 13b5decb83995ecfb07d1be15b0ab3c4702ed740
   },
   fullname: {
     type: String,

@@ -2,7 +2,9 @@
   <div>
     <Header2></Header2>
     <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    >
     <br>
     <br>
     <div class="container">
@@ -310,10 +312,20 @@ export default {
         this.service1 = response.data.data[i].service1;
         this.service2 = response.data.data[i].service2;
         this.description = response.data.data[i].description;
+<<<<<<< HEAD
         this.password = response.data.data[i].password;
       }
     });
   },
+=======
+
+        //alert(response.data.data[i].username)
+      }
+      //alert(response.data.data.email)
+    });
+  },
+
+>>>>>>> 13b5decb83995ecfb07d1be15b0ab3c4702ed740
   methods: {
     cancel(){
       router.push({ path: "/dashboard" });
@@ -349,8 +361,12 @@ export default {
         description: this.input.description,
         Password: this.input.newPassword,
         email: this.input.email,
+<<<<<<< HEAD
         username: this.input.username,
         imagepath : this.img
+=======
+        username: this.input.username
+>>>>>>> 13b5decb83995ecfb07d1be15b0ab3c4702ed740
       };
 
       if(this.input.newPassword != ""){
@@ -417,12 +433,17 @@ export default {
       const formData = new FormData();
       formData.append("file", this.file);
       try {
+<<<<<<< HEAD
         await axios.post("http://localhost:3000/upload", formData)
         .then(response =>{
           this.img = response.data.file.path
           //console.log(response.data.file)
         });
 
+=======
+        await axios.post("http://localhost:3000/upload", formData);
+        this.message = "Uploaded!!";
+>>>>>>> 13b5decb83995ecfb07d1be15b0ab3c4702ed740
       } catch (err) {
         console.log(err);
         this.message = err.response.data.error;

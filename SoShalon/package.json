@@ -17,6 +17,7 @@
     "express-session": "^1.17.0",
     "jquery": "^3.4.1",
     "mongoose": "^5.7.7",
+    "multer": "^1.4.2",
     "sass": "^1.22.12",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",

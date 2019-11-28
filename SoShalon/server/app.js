@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
-var Busboy = require('busboy');
+//var Busboy = require('busboy');
 var path = require('path');
 var fs = require('fs');
 
@@ -56,23 +56,6 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.send(err.message);
-});
-
-//upload image
-app.post('/filetoupload', function (req, res) {
-  var busboy = new Busboy({ headers: req.headers });
-  busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-
-    var saveTo = path.join(__dirname, 'uploads/' + filename);
-    file.pipe(fs.createWriteStream(saveTo));
-  });
-
-  busboy.on('finish', function() {
-    res.writeHead(200, { 'Connection': 'close' });
-    res.end("That's all folks!");
-  });
-    
-  return req.pipe(busboy);    
 });
 
 
