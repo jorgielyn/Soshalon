@@ -1,7 +1,6 @@
 <template>
   <div>
-    <Header></Header>
-    <!-- <Sidebar></Sidebar>action="fileupload" method="post" enctype="multipart/form-data" -->
+    <Header2></Header2>
     <link
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <br>
@@ -19,11 +18,9 @@
                         <div class="mx-auto" style="width: 140px;">
                           <div
                             class="d-flex justify-content-center align-items-center rounded"
-                            style="height: 140px; background-color: rgb(233, 236, 239);">
-                            <img 
-                              :src = "this.file"
-                              class="image"
-                            >
+                            style="height: 140px; background-color: rgb(233, 236, 239);"
+                          >
+                            <img src ="" class="image" id="img">
                           </div>
                         </div>
                       </div>
@@ -33,19 +30,16 @@
                           <p class="mb-0">{{this.username}}</p>
                           <p class="mb-0">{{this.email}}</p>
                           <div class="input-group">
-                          <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+                            <form @submit.prevent="onSubmit" enctype="multipart/form-data">
                               <div class="fields">
-                                <label>Upload File</label><br/>
-                                <input 
-                                  type="file"
-                                  ref="file"
-                                  @change="onSelect"
-                                />
+                                <label>Upload File</label>
+                                <br>
+                                <input type="file" ref="file" @change="onSelect()">
                               </div>
                               <div class="fields">
                                 <button>Submit</button>
                               </div>
-                          </form>
+                            </form>
                           </div>
                         </div>
                       </div>
@@ -77,7 +71,6 @@
                                       name="username"
                                       v-model="input.username"
                                       :placeholder="[[ this.username ]]"
-                                      
                                     >
                                   </div>
                                 </div>
@@ -90,7 +83,7 @@
                                       class="form-control"
                                       type="text"
                                       v-model="input.email"
-                                      :placeholder="[[this.email]]" 
+                                      :placeholder="[[this.email]]"
                                     >
                                   </div>
                                 </div>
@@ -125,11 +118,21 @@
                                 <b>What service/s do you offer?</b>
                                 <br>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" value="NailPolish" v-model="input.service1" :placeholder="[[this.service1]]">Nail Polish
+                                  <input
+                                    type="checkbox"
+                                    value="NailPolish"
+                                    v-model="input.service1"
+                                    :placeholder="[[this.service1]]"
+                                  >Nail Polish
                                 </label>
                                 <br>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" value="Haircut" v-model="input.service2" :placeholder="[[this.service2]]">Hair cut
+                                  <input
+                                    type="checkbox"
+                                    value="Haircut"
+                                    v-model="input.service2"
+                                    :placeholder="[[this.service2]]"
+                                  >Hair cut
                                 </label>
                               </div>
                               <div class="row">
@@ -190,7 +193,7 @@
                                     <input
                                       class="form-control"
                                       type="password"
-                                      placeholder=""
+                                      placeholder
                                       v-model="input.newPassword"
                                     >
                                   </div>
@@ -206,15 +209,21 @@
                                     <input
                                       class="form-control"
                                       type="password"
-                                      placeholder=""
+                                      placeholder
                                       v-model="input.ConfirmPassword"
                                     >
                                   </div>
                                 </div>
                               </div>
-                              <b>Mark check to post Profile</b><br>
+                              <b>Mark check to post Profile</b>
+                              <br>
                               <label class="checkbox-inline">
-                                  <input type="checkbox" value="true" v-model="input.service1" :placeholder="[[this.service1]]">Post Profile
+                                <input
+                                  type="checkbox"
+                                  value="true"
+                                  v-model="input.service1"
+                                  :placeholder="[[this.service1]]"
+                                >Post Profile
                               </label>
                             </div>
                           </div>
@@ -225,6 +234,13 @@
                                 class="btn btn-primary"
                                 v-on:click="updateProfile()"
                               >Save Changes</button>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                              <button
+                                type="submit"
+                                class="btn btn-primary"
+                                v-on:click="cancel()"
+                              >cancel</button>
                             </div>
                           </div>
                         </form>
@@ -244,27 +260,16 @@
 </template>
 <script>
 import $ from "jquery";
-// $(function() {
-//   $("#inputFile").change(function(e) {
-//     var img = URL.createObjectURL(e.target.files[0]);
-//     $(".image").attr("src", img);
-//     //getFileContentAsBase64()
-//   });
-// });
-
-import Header from "components/frame/Header.vue";
-//import Sidebar from "components/frame/Sidebar.vue";
+import Header2 from "components/frame/Header2.vue";
 import AUTH from "services/auth";
-import { constants } from "fs";
 import axios from "axios";
 import router from "router";
 sessionStorage.setItem("token", false);
-
 export default {
   name: "profile",
   data() {
     return {
-      file:"",
+      file: "",
       fullname: "",
       email: "",
       username: "",
@@ -273,6 +278,8 @@ export default {
       service1: "",
       service2: "",
       description: "",
+      password: "",
+      img:"",
       input: {
         fullname: "",
         username: "",
@@ -289,33 +296,50 @@ export default {
     };
   },
   components: {
-    Header
-    //Sidebar
+    Header2
   },
-  mounted(){
-    axios.get("http://localhost:3000/profile").then(
-      response =>{
-        //this.username = response.data.data.username
-        for(var i in response.data.data){
-          this.username = response.data.data[i].username
-          this.fullname = response.data.data[i].fullname
-          this.email = response.data.data[i].email
-          this.fb = response.data.data[i].fb
-          this.contactNo = response.data.data[i].contactNo
-          this.service1 = response.data.data[i].service1
-          this.service2 = response.data.data[i].service2
-          this.description = response.data.data[i].description
-         
-          //alert(response.data.data[i].username)
-        }
-        //alert(response.data.data.email)
+  mounted() {
+    axios.get("http://localhost:3000/profile").then(response => {
+      //this.username = response.data.data.username
+      for (var i in response.data.data) {
+        this.username = response.data.data[i].username;
+        this.fullname = response.data.data[i].fullname;
+        this.email = response.data.data[i].email;
+        this.fb = response.data.data[i].fb;
+        this.contactNo = response.data.data[i].contactNo;
+        this.service1 = response.data.data[i].service1;
+        this.service2 = response.data.data[i].service2;
+        this.description = response.data.data[i].description;
+        this.password = response.data.data[i].password;
       }
-    )
-            
+    });
   },
-  
   methods: {
+    cancel(){
+      router.push({ path: "/dashboard" });
+    },
     updateProfile() {
+      if(this.input.fullname == ""){
+        this.input.fullname = this.fullname;
+      }
+      if(this.input.fb == ""){
+        this.input.fb = this.fb;
+      }
+      if(this.input.contactNo == ""){
+        this.input.contactNo = this.contactNo;
+      }
+      if(this.input.service1 == ""){
+        this.input.service1 = this.service1;
+      }
+      if(this.input.service2 == ""){
+        this.input.service2 = this.service1;
+      }
+      if(this.input.description == ""){
+        this.input.description = this.description;
+      }
+      if(this.input.Password == ""){
+        this.input.Password = this.Password;
+      }
       var data = {
         fullname: this.input.fullname,
         fb: this.input.fb,
@@ -323,16 +347,17 @@ export default {
         service1: this.input.service1,
         service2: this.input.service2,
         description: this.input.description,
-        currentPassword: this.input.currentPassword,
-        newPassword: this.input.newPassword,
-        ConfirmPassword: this.input.ConfirmPassword,
+        Password: this.input.newPassword,
         email: this.input.email,
         username: this.input.username,
+        imagepath : this.img
       };
-      AUTH.passwordValidation(this.input.newPassword);
-      if (AUTH.passwordValid == 1) {
-        if (this.input.newPassword == this.input.ConfirmPassword) {
-          axios.post("http://localhost:3000/updateProfile", data).then(
+
+      if(this.input.newPassword != ""){
+        AUTH.passwordValidation(this.input.newPassword);
+        if (AUTH.passwordValid == 1) {
+          if (this.input.newPassword == this.input.ConfirmPassword) {
+            axios.post("http://localhost:3000/updateProfile", data).then(
             response => {
               if (response.data.message == "ok") {
                 console.log("ok");
@@ -342,36 +367,67 @@ export default {
             err => {
               console.log(err);
             }
-          );
-        } else {
-          alert("Password did not match");
+            );
+          }else {
+            alert("Password did not match");
+          }
         }
       }
+      else{
+        var data2 = {
+        fullname: this.input.fullname,
+        fb: this.input.fb,
+        contactNo: this.input.contactNo,
+        service1: this.input.service1,
+        service2: this.input.service2,
+        description: this.input.description,
+        email: this.input.email,
+        username: this.input.username,
+        Password : this.password,
+        imagepath : this.img
+      };
+        axios.post("http://localhost:3000/updateProfile", data2).then(
+          response => {
+          if (response.data.message == "ok") {
+            console.log("ok");
+            //router.push({ path: "/login" });
+            }
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      }
     },
-    onSelect(){
+    onSelect() {
       const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
       const file = this.$refs.file.files[0];
       this.file = file;
-      if(!allowedTypes.includes(file.type)){
-        this.message = "Filetype is wrong!!"
+      if (!allowedTypes.includes(file.type)) {
+        this.message = "Filetype is wrong!!";
       }
-      if(file.size>500000){
-        this.message = 'Too large, max size allowed is 500kb'
+      if (file.size > 500000) {
+        this.message = "Too large, max size allowed is 500kb";
       }
+      var img = URL.createObjectURL(file);
+      //this.file = img;
+      $("#img").attr("src", img);
     },
-    async onSubmit(){
+    async onSubmit() {
       const formData = new FormData();
-      formData.append('file',this.file);
-      try{
-        await axios.post('http://localhost:3000/upload',formData);
-        this.message = 'Uploaded!!'
-      }
-      catch(err){
+      formData.append("file", this.file);
+      try {
+        await axios.post("http://localhost:3000/upload", formData)
+        .then(response =>{
+          this.img = response.data.file.path
+          //console.log(response.data.file)
+        });
+
+      } catch (err) {
         console.log(err);
-        this.message = err.response.data.error
+        this.message = err.response.data.error;
       }
     }
-
   }
 };
 </script>

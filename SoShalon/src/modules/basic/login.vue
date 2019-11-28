@@ -57,7 +57,7 @@ export default {
             console.log("ok")
             //AUTH.storeData(response.data.fullname, response.data.username, response.data.email, response.data.fb, response.data.contactNo, response.data.service1, response.data.service2, response.data.description, response.data.currentPassword)
             //console.log(response);
-            router.push({ path: "/profile" });
+            router.push({ path: "/dashboard" });
           }
           if(response.data.message == "Wrong email or password."){
               alert(response.data.message)

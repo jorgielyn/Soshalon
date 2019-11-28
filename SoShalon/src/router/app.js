@@ -34,9 +34,18 @@ export default {
       },
 
       {
-        path : "/addCourse",
-        name : "addCourse",
-        component : resolve => require(['modules/basic/addCourse.vue'], resolve),
+        path : "/appointments",
+        name : "appointments",
+        component : resolve => require(['modules/basic/appointments.vue'], resolve),
+        meta: {
+          token: true
+        }
+        
+      },
+      {
+        path : "/setAppointment",
+        name : "setAppointment",
+        component : resolve => require(['modules/basic/setAppointment.vue'], resolve),
         meta: {
           token: true
         }

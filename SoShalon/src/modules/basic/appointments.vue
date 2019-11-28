@@ -1,49 +1,41 @@
 <template>
   <div id="dashboard">
-    <Header2></Header2>
+  <Header2></Header2>
+
+    <!-- search area -->
     <serviceProviderCard></serviceProviderCard>
   </div>
 </template>
 
 <script>
-import serviceProviderCard from "components/card/card.vue";
 import Header2 from "components/frame/Header2.vue";
+import Sidebar from "components/frame/Sidebar.vue";
 import AUTH from "services/auth";
-import { METHODS } from "http";
-import { format } from "path";
-import router from 'router';
+import { METHODS } from 'http';
+import { format } from 'path';
 export default {
-  components: {
-    Header2,
-    serviceProviderCard
+  components:{
+    Header2
   },
   data() {
     return {
-      selected: null,
+      selected: "",
       options: [
         { value: null, text: "Please select an option" },
         { value: "a", text: "Nail Polish" },
         { value: "b", text: "Hair Cut" }
       ],
       text: ""
-    };
-  },
-  methods: {
-    format(value, event) {
-      return value.toLowerCase();
+      }
+      },
+      methods:{
+      format(value, event){
+        return value.toLowerCase()
+      }
     }
-  }
-};
+  };
 </script>
 <style>
-.mb-3,
-.my-3 {
-  margin-bottom: 0rem !important;
-}
-.mb-3,
-.my-3 {
-  margin-bottom: 1rem !important;
-}
 #logo {
   width: 200px;
   height: auto;
@@ -60,28 +52,7 @@ export default {
   height: 50px;
   border: 2px solid #ffff;
   border-radius: 50px;
-}
-#editprofile{
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  border:2px solid #ffff;
-  margin-left:-1px;
-}
-.dropdown-menu {
-    top: 100%;
-    z-index: 1000;
-    min-width: 16rem;
-    padding: 0.5rem 0;
-    margin: 0.125rem 0 0;
-    font-size: 1rem;
-    color: white;
-    text-align: center;
-    list-style: none;
-    background-color: #000;
-    background-clip: padding-box;
-    border: 2px solid #f8f9fa;
-    border-radius: 0.25rem;
+  margin-top:-5px;
 }
 #search {
   background-color: rgba(0, 0, 0, 0.3);

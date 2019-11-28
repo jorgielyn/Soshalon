@@ -18,7 +18,6 @@ const fileFilter = (req, file, cb) => {
   }
   cb(null, true);
 }
-
 const upload = multer({
   dest: './uploads',
   fileFilter,
@@ -26,6 +25,9 @@ const upload = multer({
     fileSize: 5000000
   }
 });
+
+
+
 router.post('/upload', upload.single('file'), (req, res) => {
   res.json({ file: req.file });
 });
@@ -94,18 +96,17 @@ router.post('/updateProfile', function (req, res) {
   var fullname = req.body.fullname.trim();
   var fb = req.body.fb.trim();
   var contactNo = req.body.contactNo.trim();
-  var service1 = req.body.service1.trim();
-  var service2 = req.body.service2.trim();
+  var service1 = req.body.service1
+  var service2 = req.body.service2
   var description = req.body.description.trim();
-  var newPassword = req.body.newPassword.trim();
-  User.update({ _id: userId }, { $set: { fullname: fullname, email: email, username: username, fb: fb, contactNo: contactNo, service1: service1, service2, service2, description: description, password: newPassword } }, function (err, result) {
-    console.log(result)
+  var Password = req.body.Password.trim();
+  var image = req.body.imagepath;
+  User.update({ _id :userId}, { $set: { fullname: fullname, email: email, username: username, fb: fb, contactNo: contactNo, service1: service1, service2, service2, description: description, password: Password, img: image } }, function (err, result) {
     if (err) {
       console.log(err);
       res.status(401).json({ message: err.message })
     }
     else {
-      //console
       console.log(result);
       res.status(200).json({ message: 'ok' })
     }
