@@ -22,7 +22,7 @@
                             class="d-flex justify-content-center align-items-center rounded"
                             style="height: 140px; background-color: rgb(233, 236, 239);"
                           >
-                            <img src ="" class="image" id="img">
+                            <img src class="image" id="img">
                           </div>
                         </div>
                       </div>
@@ -34,12 +34,12 @@
                           <div class="input-group">
                             <form @submit.prevent="onSubmit" enctype="multipart/form-data">
                               <div class="fields">
-                                <label>Upload File</label>
+                                <label id="service">Upload File</label>
                                 <br>
                                 <input type="file" ref="file" @change="onSelect()">
                               </div>
                               <div class="fields">
-                                <button>Submit</button>
+                                <button >Submit</button>
                               </div>
                             </form>
                           </div>
@@ -51,96 +51,196 @@
                         <form class="form" onsubmit="event.preventDefault();">
                           <div class="row">
                             <div class="col">
-                              <div class="row">
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>Full Name</label>
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      name="name"
-                                      v-model="input.fullname"
-                                      :placeholder="[[ this.fullname ]]"
-                                    >
-                                  </div>
-                                </div>
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>Username</label>
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      name="username"
-                                      v-model="input.username"
-                                      :placeholder="[[ this.username ]]"
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>Email</label>
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      v-model="input.email"
-                                      :placeholder="[[this.email]]"
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>Facebook Messenger</label>
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      v-model="input.fb"
-                                      :placeholder="[[this.fb]]"
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>Contact number</label>
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      v-model="input.contactNo"
-                                      :placeholder="[[this.contactNo]]"
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="container">
-                                <b>What service/s do you offer?</b>
-                                <br>
-                                <label class="checkbox-inline">
-                                  <input
-                                    type="checkbox"
-                                    value="NailPolish"
-                                    v-model="input.service1"
-                                    :placeholder="[[this.service1]]"
-                                  >Nail Polish
-                                </label>
-                                <br>
-                                <label class="checkbox-inline">
-                                  <input
-                                    type="checkbox"
-                                    value="Haircut"
-                                    v-model="input.service2"
-                                    :placeholder="[[this.service2]]"
-                                  >Hair cut
-                                </label>
-                              </div>
+                              <!-- trying to put in a column -->
+                              <b-container>
+                                <b-row>
+                                  <b-col cols="5">
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="form-group">
+                                          <label id="service">Full Name</label>
+                                          <input
+                                            class="form-control"
+                                            type="text"
+                                            name="name"
+                                            v-model="input.fullname"
+                                            :placeholder="[[ this.fullname ]]"
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                        
+                                        <div class="form-group">
+                                          <label id="service">Username</label>
+                                          <input
+                                            class="form-control"
+                                            type="text"
+                                            name="username"
+                                            v-model="input.username"
+                                            :placeholder="[[ this.username ]]"
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="form-group">
+                                          <label id="service">Email</label>
+                                          <input
+                                            class="form-control"
+                                            type="text"
+                                            v-model="input.email"
+                                            :placeholder="[[this.email]]"
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="form-group">
+                                          <label id="service">Facebook Messenger</label>
+                                          <input
+                                            class="form-control"
+                                            type="text"
+                                            v-model="input.fb"
+                                            :placeholder="[[this.fb]]"
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="form-group">
+                                          <label id="service">Contact number</label>
+                                          <input
+                                            class="form-control"
+                                            type="text"
+                                            v-model="input.contactNo"
+                                            :placeholder="[[this.contactNo]]"
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="container">
+                                      <b id="appointment">What service/s do you offer?</b>
+                                      <br>
+                                      <label class="checkbox-inline">
+                                        <input
+                                          type="checkbox"
+                                          value="NailPolish"
+                                          v-model="input.service1"
+                                          :placeholder="[[this.service1]]"
+                                        >Nail Polish
+                                      </label>
+                                      <br>
+                                      <label class="checkbox-inline">
+                                        <input
+                                          type="checkbox"
+                                          value="Haircut"
+                                          v-model="input.service2"
+                                          :placeholder="[[this.service2]]"
+                                        >Hair cut
+                                      </label>
+                                    </div>
+                                  </b-col>
+                                  <!-- bigger -->
+                                  <b-col cols="7">
+                                    <div class="row">
+                                      <b id="appointment">Set your Schedule</b>
+                                      <br>
+                                      <div class="col">
+                                        <div class="form-group">
+                                          <label id="appointment">From</label>
+                                          <div class="row">
+                                            <div class="col">
+                                              <div class="form-group">
+                                                <label id="service">Date:</label>
+                                                <input
+                                                  class="form-control"
+                                                  type="date"
+                                                  placeholder
+                                                  v-model="input.date"
+                                                >
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                       <div class="col">
+                                      <div class="form-group">
+                                         <label id="appointment">From</label>
+                                         <div class="row">
+                                        <label id="service">Time:</label>
+                                        <input
+                                          class="form-control"
+                                          type="time"
+                                          placeholder
+                                          v-model="input.time"
+                                        >
+                                      </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                   
+                                    <div>
+                                      <b id="appointment">Change Password</b>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="form-group">
+                                          <label id="service">Current Password</label>
+                                          <input
+                                            class="form-control"
+                                            type="password"
+                                            placeholder=" "
+                                            v-model="input.currentPassword"
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="form-group">
+                                          <label id="service">New Password</label>
+                                          <input
+                                            class="form-control"
+                                            type="password"
+                                            placeholder
+                                            v-model="input.newPassword"
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="form-group">
+                                          <label id="service">
+                                            Confirm
+                                            <span class="d-none d-xl-inline" id="service">Password</span>
+                                          </label>
+                                          <input
+                                            class="form-control"
+                                            type="password"
+                                            placeholder
+                                            v-model="input.ConfirmPassword"
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </b-col>
+                                </b-row>
+                              </b-container>
+                              <!-- trying to put in a column -->
+
                               <div class="row">
                                 <div class="col mb-3">
                                   <div class="form-group">
-                                    <label>About</label>
+                                    <label id="appointment">About</label>
                                     <textarea
                                       v-model="input.description"
                                       :placeholder="[[this.description]]"
@@ -154,77 +254,17 @@
                           </div>
 
                           <div class="row">
-                            <b>Set your Schedule</b>
-                            <br>
-                            <div class="col">
-                              <div class="form-group">
-                                <label>From</label>
-                                <input class="form-control" type="text" placeholder value>
-                              </div>
-                            </div>
-                            <div class="col">
-                              <div class="form-group">
-                                <label>To</label>
-                                <input class="form-control" type="text" name placeholder value>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
                             <div class="col-12 col-sm-6 mb-3">
-                              <div class="mb-2">
-                                <b>Change Password</b>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>Current Password</label>
-                                    <input
-                                      class="form-control"
-                                      type="password"
-                                      placeholder=" "
-                                      v-model="input.currentPassword"
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>New Password</label>
-                                    <input
-                                      class="form-control"
-                                      type="password"
-                                      placeholder
-                                      v-model="input.newPassword"
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>
-                                      Confirm
-                                      <span class="d-none d-xl-inline">Password</span>
-                                    </label>
-                                    <input
-                                      class="form-control"
-                                      type="password"
-                                      placeholder
-                                      v-model="input.ConfirmPassword"
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                              <b>Mark check to post Profile</b>
+                              <div class="mb-2"></div>
+
+                              <b id="appointment">Mark check to post Profile</b>
                               <br>
                               <label class="checkbox-inline">
                                 <input
                                   type="checkbox"
                                   value="true"
-                                  v-model="input.service1"
-                                  :placeholder="[[this.service1]]"
+                                  v-model="input.postCheck"
+                                  :placeholder="[[this. postCheck]]"
                                 >Post Profile
                               </label>
                             </div>
@@ -281,7 +321,9 @@ export default {
       service2: "",
       description: "",
       password: "",
-      img:"",
+      img: "",
+      postCheck: "",
+      time: "",
       input: {
         fullname: "",
         username: "",
@@ -293,7 +335,9 @@ export default {
         description: "",
         currentPassword: "",
         newPassword: "",
-        ConfirmPassword: ""
+        ConfirmPassword: "",
+        postCheck: "",
+        time: ""
       }
     };
   },
@@ -312,44 +356,34 @@ export default {
         this.service1 = response.data.data[i].service1;
         this.service2 = response.data.data[i].service2;
         this.description = response.data.data[i].description;
-<<<<<<< HEAD
         this.password = response.data.data[i].password;
       }
     });
   },
-=======
-
-        //alert(response.data.data[i].username)
-      }
-      //alert(response.data.data.email)
-    });
-  },
-
->>>>>>> 13b5decb83995ecfb07d1be15b0ab3c4702ed740
   methods: {
-    cancel(){
+    cancel() {
       router.push({ path: "/dashboard" });
     },
     updateProfile() {
-      if(this.input.fullname == ""){
+      if (this.input.fullname == "") {
         this.input.fullname = this.fullname;
       }
-      if(this.input.fb == ""){
+      if (this.input.fb == "") {
         this.input.fb = this.fb;
       }
-      if(this.input.contactNo == ""){
+      if (this.input.contactNo == "") {
         this.input.contactNo = this.contactNo;
       }
-      if(this.input.service1 == ""){
+      if (this.input.service1 == "") {
         this.input.service1 = this.service1;
       }
-      if(this.input.service2 == ""){
+      if (this.input.service2 == "") {
         this.input.service2 = this.service1;
       }
-      if(this.input.description == ""){
+      if (this.input.description == "") {
         this.input.description = this.description;
       }
-      if(this.input.Password == ""){
+      if (this.input.Password == "") {
         this.input.Password = this.Password;
       }
       var data = {
@@ -361,52 +395,47 @@ export default {
         description: this.input.description,
         Password: this.input.newPassword,
         email: this.input.email,
-<<<<<<< HEAD
         username: this.input.username,
-        imagepath : this.img
-=======
-        username: this.input.username
->>>>>>> 13b5decb83995ecfb07d1be15b0ab3c4702ed740
+        imagepath: this.img
       };
 
-      if(this.input.newPassword != ""){
+      if (this.input.newPassword != "") {
         AUTH.passwordValidation(this.input.newPassword);
         if (AUTH.passwordValid == 1) {
           if (this.input.newPassword == this.input.ConfirmPassword) {
             axios.post("http://localhost:3000/updateProfile", data).then(
-            response => {
-              if (response.data.message == "ok") {
-                console.log("ok");
-                //router.push({ path: "/login" });
+              response => {
+                if (response.data.message == "ok") {
+                  console.log("ok");
+                  //router.push({ path: "/login" });
+                }
+              },
+              err => {
+                console.log(err);
               }
-            },
-            err => {
-              console.log(err);
-            }
             );
-          }else {
+          } else {
             alert("Password did not match");
           }
         }
-      }
-      else{
+      } else {
         var data2 = {
-        fullname: this.input.fullname,
-        fb: this.input.fb,
-        contactNo: this.input.contactNo,
-        service1: this.input.service1,
-        service2: this.input.service2,
-        description: this.input.description,
-        email: this.input.email,
-        username: this.input.username,
-        Password : this.password,
-        imagepath : this.img
-      };
+          fullname: this.input.fullname,
+          fb: this.input.fb,
+          contactNo: this.input.contactNo,
+          service1: this.input.service1,
+          service2: this.input.service2,
+          description: this.input.description,
+          email: this.input.email,
+          username: this.input.username,
+          Password: this.password,
+          imagepath: this.img
+        };
         axios.post("http://localhost:3000/updateProfile", data2).then(
           response => {
-          if (response.data.message == "ok") {
-            console.log("ok");
-            //router.push({ path: "/login" });
+            if (response.data.message == "ok") {
+              console.log("ok");
+              //router.push({ path: "/login" });
             }
           },
           err => {
@@ -433,17 +462,12 @@ export default {
       const formData = new FormData();
       formData.append("file", this.file);
       try {
-<<<<<<< HEAD
-        await axios.post("http://localhost:3000/upload", formData)
-        .then(response =>{
-          this.img = response.data.file.path
-          //console.log(response.data.file)
-        });
-
-=======
-        await axios.post("http://localhost:3000/upload", formData);
-        this.message = "Uploaded!!";
->>>>>>> 13b5decb83995ecfb07d1be15b0ab3c4702ed740
+        await axios
+          .post("http://localhost:3000/upload", formData)
+          .then(response => {
+            this.img = response.data.file.path;
+            //console.log(response.data.file)
+          });
       } catch (err) {
         console.log(err);
         this.message = err.response.data.error;
@@ -460,6 +484,16 @@ export default {
 body {
   margin-top: 20px;
   background: #f8f8f8;
+}
+#appointment {
+  color: #ff3377;
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+}
+#service {
+  color: #00bcd4;
+  font-weight: bold;
 }
 </style>
 
