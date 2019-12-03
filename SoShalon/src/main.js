@@ -8,7 +8,7 @@ import router from 'router';
 import VueSweetalert2 from 'vue-sweetalert2';
  
 // If you don't need the styles, do not connect
-//import 'sweetalert2';
+import 'sweetalert2';
  // to use the swal fire
 Vue.use(VueSweetalert2);
 
