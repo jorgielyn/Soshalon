@@ -362,7 +362,27 @@ export default {
   },
   methods: {
     cancel() {
-      router.push({ path: "/dashboard" });
+       router.push({ path: "/dashboard" });
+       this.$swal({
+        title: "Are you sure?",
+        text: "You can't revert your action",
+        type: "warning",
+        // showCancelButton: true,
+        confirmButtonText: "Yes Cancel it!",
+        // cancelButtonText: "No, Keep it!",
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then(result => {
+        if (result.value) {
+          this.$swal(
+            "Cancelled",
+            "You successfully cancelled your update",
+            "success"
+          );
+        } else {
+          this.$swal("Cancelled", "Your file is still intact", "info");
+        }
+      });
     },
     updateProfile() {
       if (this.input.fullname == "") {
@@ -442,6 +462,11 @@ export default {
             console.log(err);
           }
         );
+        this.$swal({
+        type: "success",
+        title: "SUCCESS!",
+        text: "Your profile has been updated!"
+      });
       }
     },
     onSelect() {
